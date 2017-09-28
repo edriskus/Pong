@@ -1,0 +1,21 @@
+{
+  "name": "pong",
+  "version": "1.0.0",
+  "description": "A simple Pong game",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node dist/app.js"
+  },
+  "keywords": [
+    "Pong",
+    "game"
+  ],
+  "author": "Edmundas Riskus",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "input-event": "^1.2.2",
+    "keypress": "^0.2.1"
+  }
+}
