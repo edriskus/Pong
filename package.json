@@ -1,21 +1,27 @@
 {
   "name": "pong",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple Pong game",
   "main": "src/index.ts",
+  "bin": "dist/app.js",
+  "pkg": {
+    "assets": "node_modules/terminal-kit/lib/**/*.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node dist/app.js"
+    "start": "tsc && node dist/app.js",
+    "pkg": "pkg package.json --debug -t node8-win-x86,node8-linux-x64,node8-macos-x86 --out-path builds --assets"
   },
   "keywords": [
     "Pong",
     "game"
   ],
   "author": "Edmundas Riskus",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "clear": "0.0.1",
     "input-event": "^1.2.2",
-    "keypress": "^0.2.1"
+    "keypress": "^0.2.1",
+    "terminal-kit": "^1.13.11"
   }
 }
