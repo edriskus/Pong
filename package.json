@@ -22,6 +22,7 @@
     "clear": "0.0.1",
     "input-event": "^1.2.2",
     "keypress": "^0.2.1",
-    "terminal-kit": "^1.13.11"
+    "terminal-kit": "^1.13.11",
+    "typescript": "^2.5.3"
   }
 }
