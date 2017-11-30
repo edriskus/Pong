@@ -96,7 +96,7 @@ function moveAI(y, ww = width) {
     if(Math.floor(leftW / hmo) % 2 == 0) predictY = hmo - predictY;
     else predictY--;
   }
-  interpolateMoving(padA, predictY + Math.floor(Math.random() * 5 - 3), (ww - 6) * gameSpeed + 50 * Math.floor(Math.random() * 5 - 3) );
+  interpolateMoving(padA, predictY + Math.floor(Math.random() * 5 - 3), (ww - 6) * gameSpeed );
 }
 
 // Move paddle to speific Y over specified duration

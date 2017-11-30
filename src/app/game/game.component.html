@@ -1,0 +1,31 @@
+
+<div class="game-component" [class.dark]="inverted">
+  <div class="container">
+    <div class="row">
+        <div class="col text-center">
+          <h3 class="display-3 pb-5">Pong</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="game-wrap">
+            <canvas #canvas [width]="gameWidth" [height]="gameHeight" (mousemove)="movePaddle($event)" (click)="toggleMoving()"></canvas>
+            <div @fadeInOut class="game-menu d-flex justify-content-center align-items-center" *ngIf="!gameRunning">
+              <h3>Game paused</h3>
+              <a (click)="toggleMoving()" class="link">Resume</a>
+              
+            </div>
+            <div class="game-score">
+              <span>{{ pongGame.score.a }}:{{ pongGame.score.b }}</span>
+            </div>
+            <div class="game-help text-center">
+              <span *ngIf="clickToContinue">Cick to continue</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="license text-center">
+    <div *ngIf="pongGame?.colliders?.badPower">Icon made from <a href="http://www.onlinewebfonts.com/icon">Icon Fonts</a> is licensed by CC BY 3.0</div>
+  </div>
+</div>
