@@ -61,7 +61,7 @@ export class GameComponent implements OnInit {
     this.pongGame.paddle.movePad(yproc);
   }
 
-  toggleMoving(ev) {
+  toggleMoving() {
     this.gameRunning = this.pongGame.toggleMoving();
     this.inverted = !this.gameRunning;
     this.pongGame.setColorFilter(this.inverted ? 'INVERTED': null);

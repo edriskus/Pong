@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4200",
+    "postinstall": "ng build --prod",
+    "start": "node ./server/bin/www",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -42,9 +43,14 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "~2.3.3"
+    "typescript": "~2.3.3",
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "serve-favicon": "~2.4.5"
   },
-  "devDependencies": {
-    
-  }
+  "devDependencies": {}
 }
