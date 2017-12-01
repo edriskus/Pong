@@ -56,8 +56,19 @@ export class GameComponent implements OnInit {
   }
 
   movePaddle(ev) {
+    console.log('MOUSE', ev, document.getElementById("game-canvas").getBoundingClientRect().top);
+
     if(!this.gameRunning) return;
-    var yproc = ev.layerY / ev.target.offsetHeight;
+    var yproc = (ev.pageY - document.getElementById("game-canvas").getBoundingClientRect().top) / ev.target.offsetHeight;
+    this.pongGame.paddle.movePad(yproc);
+  }
+
+  touchMovePaddle(ev) {
+    console.log('TOUCH', ev);
+    
+    if(!this.gameRunning) return;
+    if(!ev.touches || !ev.touches[0] || ev.touches[0].clientY == null) return;
+    var yproc = (ev.touches[0].pageY - document.getElementById("game-canvas").getBoundingClientRect().top) / ev.target.offsetHeight;
     this.pongGame.paddle.movePad(yproc);
   }
 
