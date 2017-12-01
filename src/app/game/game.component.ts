@@ -64,6 +64,7 @@ export class GameComponent implements OnInit {
   touchMovePaddle(ev) {    
     if(!this.gameRunning) return;
     if(!ev.touches || !ev.touches[0] || ev.touches[0].clientY == null) return;
+    ev.preventDefault();
     var yproc = (ev.touches[0].pageY - document.getElementById("game-canvas").getBoundingClientRect().top) / ev.target.offsetHeight;
     this.pongGame.paddle.movePad(yproc);
   }
