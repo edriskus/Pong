@@ -1,7 +1,11 @@
 import { PongGame } from './Game';
 
+/*
+    Pong Game HTML5 Canvas controller class. 
+*/
 export class PongCanvas {
 
+    // Canvas properties
     private ctx;
     private element;
     private w: number;
@@ -15,6 +19,7 @@ export class PongCanvas {
         this.ctx.fillStyle = "#000000";
     }
 
+    // Draw game
     drawGame(game: PongGame) {        
         this.ctx.clearRect(0, 0, this.w, this.h);
         for(let b of game.balls) {
@@ -46,6 +51,7 @@ export class PongCanvas {
         }
     }
 
+    // Get a color filter
     colorFilter(color, filter) {
         if(!color) return color;
         switch(filter) {

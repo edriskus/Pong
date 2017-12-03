@@ -1,5 +1,8 @@
 import { Collider } from './Collider';
 
+/*
+    Pong Game Trigger class. 
+*/
 export class Trigger extends Collider {
 
     constructor(
@@ -12,6 +15,7 @@ export class Trigger extends Collider {
         super(x, y, width, height);
     }
 
+    // Inherited from Collider and overloaded
     public collide(x: number, prevx: number, y: number, prevy: number, angle: number, item: any) {
         
         if(prevx < this.x && x < this.x) return null;

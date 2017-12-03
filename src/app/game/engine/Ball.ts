@@ -2,12 +2,12 @@ import { PongGame } from "./Game";
 
 const deltaMod = 0.25;
 
+/*
+    Pong Game ball class. 
+*/
 export class PongBall {
 
-    // Ball properties
-    private dirX: string = 'RIGHT';
-    private dirY: string = 'DOWN';
-    
+    // Ball properties    
     public angle: number = 120;
     public x: number = 0;
     public y: number = 0;
@@ -17,17 +17,17 @@ export class PongBall {
     constructor(
         private width: number, 
         private height: number, 
-        private speed: number, 
+        public speed: number, 
         private game: PongGame
     ) {
         this.radius = width / 130;
         this.x = width / 2;
         this.y = height / 2;
         this.speed = speed;
-        var w: any = window; w.pongGameBall = this;
     }
 
-    formattedAngle(angle) {
+    // Angle formatting tools
+    private formattedAngle(angle) {
         angle = Math.abs(angle);
         angle = angle % 180;
         if(angle / 90 > 1) {
@@ -37,15 +37,16 @@ export class PongBall {
         }                
     }
 
-    formattedSpeed(speed, angle) {
+    private formattedSpeed(speed, angle) {
         return this.formattedAngle(angle) * speed
         // return this.speed;
     }
 
-    normalizeAngle(angle: number): number {
+    private normalizeAngle(angle: number): number {
         return angle % 360;
     }
 
+    // Move on every frame
     public move(count: number = 1) {
         let coords = this.findNewPoint(this.x, this.y, this.angle, this.formattedSpeed(this.speed, this.angle));
         this.angle = this.normalizeAngle(this.angle);
@@ -60,6 +61,7 @@ export class PongBall {
         }
     }
 
+    // Try to collide game colliders
     public collide(x, y, angle): number {
         var key, collision;
         for(key in this.game.colliders) {
@@ -69,7 +71,8 @@ export class PongBall {
         return null;
     }
 
-    private findNewPoint(x, y, angle, distance) {
+    // Find new point by current coords, angle and distance
+    public findNewPoint(x, y, angle, distance) {
         var result: any = {};
     
         result.x = Math.round(Math.cos(angle * Math.PI / 180) * distance + x);

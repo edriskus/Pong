@@ -1,3 +1,6 @@
+/*
+    Pong Game Event class. 
+*/
 export class PongEvent {
     public data: any;
 

@@ -1,5 +1,9 @@
 import { Collider } from './Collider';
+import { PongGame } from './Game';
 
+/*
+    Pong Game Paddle class. 
+*/
 export class PongPaddle extends Collider {
     public startheight: number;
     public y: number = 0;
@@ -12,7 +16,7 @@ export class PongPaddle extends Collider {
     constructor(
       protected gameWidth: number, 
       protected gameHeight: number, 
-      protected drawGame: Function, 
+      public game: PongGame,
       height?
     ) {
       super(gameWidth - 4 * (gameWidth / 130), 0, gameWidth / 130, (height ? height * gameHeight : 0.35 * gameHeight));
@@ -40,6 +44,7 @@ export class PongPaddle extends Collider {
       }
     }
 
+    // Extracted from collide to simplify things
     protected colliderFunction(x: number, prevx: number, y: number, prevy: number, angle: number) {
       if(prevx < this.x && x < this.x) return null;
       if(prevx > (this.x + this.width) && x > (this.x + this.width)) return null;
@@ -53,6 +58,7 @@ export class PongPaddle extends Collider {
       else if(prevx > (this.x + this.width) && x <= (this.x + this.width)) { return this.mirrorX(angle) /* x from right */}
     }
 
+    // Inherited from Collider and overloaded
     public collide(x: number, prevx: number, y: number, prevy: number, angle: number, item: any) {
       var response = this.colliderFunction(x, prevx, y, prevy, angle);
       if(response != null) {
@@ -67,6 +73,7 @@ export class PongPaddle extends Collider {
         response = (1 - ywhere) * 180 + 90;
         if(response < 120) response = 120;
         if(response > 240) response = 240;
+        if(this.game.balls[0] === item) this.game.observeBall();
       }       
       return response;
     }

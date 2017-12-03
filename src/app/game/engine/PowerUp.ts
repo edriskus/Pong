@@ -1,5 +1,8 @@
 import { Trigger } from './Trigger';
 
+/*
+    Pong Game PowerUp class. 
+*/
 export class PowerUp extends Trigger {
 
     constructor(

@@ -9,6 +9,9 @@ import { PowerUp } from './PowerUp';
 
 import { Subject } from 'rxjs/Subject';
 
+/*
+    Main Pong Game class. 
+*/
 export class PongGame {
 
     // Event emitter
@@ -27,7 +30,7 @@ export class PongGame {
     public colliders: { [key:string]: Collider } = {};
     public drawables: { [key:string]: any } = {};
 
-    // Game scroe
+    // Game score
     public score = {
         a: 0,
         b: 0
@@ -41,19 +44,20 @@ export class PongGame {
         private speeDelta: number = 0.9999
     ) {
         this.loadImages();
+        // Add a ball to the game
         this.balls.push(new PongBall(width, height, this.initGS, this))
         var self = this;
-        this.paddle = new PongPaddle(width, height, () => {
-            self.screen.drawGame(this)
-        })
-        this.computer = new PongBasicAIPaddle(width, height, () => {
-            self.screen.drawGame(this)
-        })
+        // Add a player paddle to the game
+        this.paddle = new PongPaddle(width, height, this)
+        // Add an AI opponent paddle
+        this.computer = new PongBasicAIPaddle(width, height,this)
         this.colliders.playerPaddle = this.paddle;
         this.colliders.computerPaddle = this.computer;
+        // Add a top wall collider
         this.colliders.wallTop = new Collider(0, 1, width, 1);
+        // Add a bottom wall collider
         this.colliders.wallBottom = new Collider(0, height - 1, width, 1);
-        /* Make them critical */
+        // Add left and right wall triggers to fly the ball out of the game
         this.colliders.wallLeft = new Trigger(1, 0, 1, height, (item) => {
             this.score.b++;
             this.events.next(new PongEvent('PLAYER_MISS', this.score))
@@ -71,6 +75,7 @@ export class PongGame {
     private lastBallOut = (ball) => {
         let index = this.balls.findIndex(el => el === ball);
         this.balls.splice(index, 1);
+        this.observeBall();
         if(this.balls.length == 1) this.setColorFilter(null);
         if(this.balls.length < 1) {
             this.stopMoving();
@@ -103,17 +108,27 @@ export class PongGame {
     // Start ball moving
     private startMoving() {
         if(this.gameClock) return;
+        this.observeBall();
         this.events.next(new PongEvent('GAME_START'))
         var moveCount: number = 0;
         var ball;
+        var previous;
         var timeoutFn = () => {
             for(ball of this.balls) ball.move();
-            this.computer.movePad(this);
+            this.computer.moveToTarget();
             moveCount++;
-            if(moveCount > 250) { this.doRandomStuff(); moveCount = 0; }
+            if(moveCount > 250) { 
+                this.doRandomStuff(); 
+                moveCount = 0; 
+            }
             this.screen.drawGame(this);
         }
         this.gameClock = setInterval(timeoutFn, 20);
+    }
+
+    // Make computer observe the ball
+    public observeBall() {
+        if(this.balls[0] && !this.balls[1]) this.computer.observeBall(this.balls[0]);
     }
 
     // Add power up
@@ -172,7 +187,6 @@ export class PongGame {
             self.images.bad = this;
         }
         this.images.bad.src = 'http://cdn.onlinewebfonts.com/svg/download_323449.png'
-        // 'https://preview.ibb.co/jkCG0G/aurelijus_veryga_75851909.jpg';
     }
 
 }
