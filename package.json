@@ -1,6 +1,6 @@
 {
   "name": "ng-pong",
-  "version": "2.0.48-BETA",
+  "version": "2.0.49-BETA",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

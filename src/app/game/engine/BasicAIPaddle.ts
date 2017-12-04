@@ -22,7 +22,7 @@ export class PongBasicAIPaddle extends PongPaddle {
       gameHeight: number, 
       game: PongGame,
       height?,
-      public dumbness: number = 0.5
+      public dumbness: number = 0.1
     ) {
       super(gameWidth, gameHeight, game, height);
       this.x = 3 * (gameWidth / 130);
@@ -58,6 +58,9 @@ export class PongBasicAIPaddle extends PongPaddle {
       while(distance >= 0) {
         count++;
         distance -= speedX;
+        if(distance < 0) {
+          speedY *= Math.abs(distance) / speedX;
+        } 
         target += speedY;
         if(target < 0 || target >= this.gameHeight) {
           speedY *= (-1);
